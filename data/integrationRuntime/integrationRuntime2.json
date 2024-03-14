@@ -1,0 +1,12 @@
+{
+	"name": "integrationRuntime2",
+	"properties": {
+		"type": "SelfHosted",
+		"typeProperties": {
+			"linkedInfo": {
+				"resourceId": "/subscriptions/f3b639bf-7b9d-4aa6-aad9-8a3abc2a5e77/resourcegroups/azurevisionboard-rg/providers/Microsoft.DataFactory/factories/adfvisiontrainig/integrationruntimes/integrationRuntimenew",
+				"authorizationType": "Rbac"
+			}
+		}
+	}
+}

@@ -1,0 +1,16 @@
+{
+	"name": "LS_SQLTABLE",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=False;data source=DESKTOP-OFC91H4\\SQLEXPRESS;initial catalog=sales_ecom;user id=sa",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIzMjBhYzFhZi0wYmUwLTQyYjgtYmRjNC0wNWUwZjBkZGU3MzAiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime2",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

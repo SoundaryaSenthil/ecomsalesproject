@@ -1,0 +1,27 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adfecomprj"
+		},
+		"DS_SQL_PARQ_accountKey": {
+			"value": ""
+		},
+		"LS_SQLTABLE_connectionString": {
+			"value": ""
+		},
+		"LS_SQL_PARQ_accountKey": {
+			"value": ""
+		},
+		"DS_SQL_PARQ_properties_typeProperties_url": {
+			"value": "https://adlsecomprjrow.dfs.core.windows.net/"
+		},
+		"LS_SQL_PARQ_properties_typeProperties_url": {
+			"value": "https://adlsecomprjrow.dfs.core.windows.net/"
+		},
+		"integrationRuntime2_properties_typeProperties_linkedInfo_resourceId": {
+			"value": "/subscriptions/f3b639bf-7b9d-4aa6-aad9-8a3abc2a5e77/resourcegroups/azurevisionboard-rg/providers/Microsoft.DataFactory/factories/adfvisiontrainig/integrationruntimes/integrationRuntimenew"
+		}
+	}
+}

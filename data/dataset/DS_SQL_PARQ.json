@@ -1,0 +1,19 @@
+{
+	"name": "DS_SQL_PARQ",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SQL_PARQ",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "order"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}

@@ -1,0 +1,48 @@
+{
+	"name": "ds_blob_parqin",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_blob_parqin",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "products.csv",
+				"container": "productin"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "product_id",
+				"type": "String"
+			},
+			{
+				"name": "product_category_name",
+				"type": "String"
+			},
+			{
+				"name": "product_weight_g",
+				"type": "String"
+			},
+			{
+				"name": "product_length_cm",
+				"type": "String"
+			},
+			{
+				"name": "product_height_cm",
+				"type": "String"
+			},
+			{
+				"name": "product_width_cm",
+				"type": "String"
+			}
+		]
+	}
+}

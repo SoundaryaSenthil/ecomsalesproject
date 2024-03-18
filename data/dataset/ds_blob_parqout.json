@@ -1,0 +1,19 @@
+{
+	"name": "ds_blob_parqout",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_blob_parqout",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "product"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}

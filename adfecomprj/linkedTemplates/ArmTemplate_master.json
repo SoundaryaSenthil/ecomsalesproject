@@ -19,6 +19,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'LS_SQL_PARQ'"
 		},
+		"LS_SQL_PARQ1_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_SQL_PARQ1'"
+		},
 		"DS_SQL_PARQ_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://adlsecomprjrow.dfs.core.windows.net/"
@@ -26,6 +30,10 @@
 		"LS_SQL_PARQ_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://adlsecomprjrow.dfs.core.windows.net/"
+		},
+		"LS_SQL_PARQ1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adlsecomprjsi.dfs.core.windows.net/"
 		},
 		"integrationRuntime2_properties_typeProperties_linkedInfo_resourceId": {
 			"type": "string",
@@ -64,6 +72,9 @@
 					"LS_SQL_PARQ_accountKey": {
 						"value": "[parameters('LS_SQL_PARQ_accountKey')]"
 					},
+					"LS_SQL_PARQ1_accountKey": {
+						"value": "[parameters('LS_SQL_PARQ1_accountKey')]"
+					},
 					"LS_SQLTABLE_connectionString": {
 						"value": "[parameters('LS_SQLTABLE_connectionString')]"
 					},
@@ -72,6 +83,9 @@
 					},
 					"LS_SQL_PARQ_properties_typeProperties_url": {
 						"value": "[parameters('LS_SQL_PARQ_properties_typeProperties_url')]"
+					},
+					"LS_SQL_PARQ1_properties_typeProperties_url": {
+						"value": "[parameters('LS_SQL_PARQ1_properties_typeProperties_url')]"
 					},
 					"integrationRuntime2_properties_typeProperties_linkedInfo_resourceId": {
 						"value": "[parameters('integrationRuntime2_properties_typeProperties_linkedInfo_resourceId')]"

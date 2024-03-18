@@ -8,6 +8,15 @@
 		"DS_SQL_PARQ_accountKey": {
 			"value": ""
 		},
+		"LS_MANUALFILE_PARQ_accountKey": {
+			"value": ""
+		},
+		"LS_MAN_PARQ_OUT_accountKey": {
+			"value": ""
+		},
+		"LS_RES_PARQ_accountKey": {
+			"value": ""
+		},
 		"LS_SQLTABLE_connectionString": {
 			"value": ""
 		},
@@ -20,11 +29,26 @@
 		"DS_SQL_PARQ_properties_typeProperties_url": {
 			"value": "https://adlsecomprjrow.dfs.core.windows.net/"
 		},
+		"LS_MANUALFILE_PARQ_properties_typeProperties_url": {
+			"value": "https://adlsecomprjrow.dfs.core.windows.net/"
+		},
+		"LS_MAN_PARQ_OUT_properties_typeProperties_url": {
+			"value": "https://adlsecomprjsi.dfs.core.windows.net/"
+		},
+		"LS_REST_PARQ_properties_typeProperties_url": {
+			"value": " https://retoolapi.dev/qafgQn/data"
+		},
+		"LS_RES_PARQ_properties_typeProperties_url": {
+			"value": "https://adlsecomprjsi.dfs.core.windows.net/"
+		},
 		"LS_SQL_PARQ_properties_typeProperties_url": {
 			"value": "https://adlsecomprjrow.dfs.core.windows.net/"
 		},
 		"LS_SQL_PARQ1_properties_typeProperties_url": {
 			"value": "https://adlsecomprjsi.dfs.core.windows.net/"
+		},
+		"EVNT_MANUALFILE_properties_typeProperties_scope": {
+			"value": "/subscriptions/f3b639bf-7b9d-4aa6-aad9-8a3abc2a5e77/resourceGroups/rg-ecomproject/providers/Microsoft.Storage/storageAccounts/adlsecomprjrow"
 		},
 		"integrationRuntime2_properties_typeProperties_linkedInfo_resourceId": {
 			"value": "/subscriptions/f3b639bf-7b9d-4aa6-aad9-8a3abc2a5e77/resourcegroups/azurevisionboard-rg/providers/Microsoft.DataFactory/factories/adfvisiontrainig/integrationruntimes/integrationRuntimenew"

@@ -11,6 +11,18 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'DS_SQL_PARQ'"
 		},
+		"LS_MANUALFILE_PARQ_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_MANUALFILE_PARQ'"
+		},
+		"LS_MAN_PARQ_OUT_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_MAN_PARQ_OUT'"
+		},
+		"LS_RES_PARQ_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_RES_PARQ'"
+		},
 		"LS_SQLTABLE_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'LS_SQLTABLE'"
@@ -27,6 +39,22 @@
 			"type": "string",
 			"defaultValue": "https://adlsecomprjrow.dfs.core.windows.net/"
 		},
+		"LS_MANUALFILE_PARQ_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adlsecomprjrow.dfs.core.windows.net/"
+		},
+		"LS_MAN_PARQ_OUT_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adlsecomprjsi.dfs.core.windows.net/"
+		},
+		"LS_REST_PARQ_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": " https://retoolapi.dev/qafgQn/data"
+		},
+		"LS_RES_PARQ_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adlsecomprjsi.dfs.core.windows.net/"
+		},
 		"LS_SQL_PARQ_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://adlsecomprjrow.dfs.core.windows.net/"
@@ -34,6 +62,10 @@
 		"LS_SQL_PARQ1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://adlsecomprjsi.dfs.core.windows.net/"
+		},
+		"EVNT_MANUALFILE_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/f3b639bf-7b9d-4aa6-aad9-8a3abc2a5e77/resourceGroups/rg-ecomproject/providers/Microsoft.Storage/storageAccounts/adlsecomprjrow"
 		},
 		"integrationRuntime2_properties_typeProperties_linkedInfo_resourceId": {
 			"type": "string",
@@ -69,6 +101,15 @@
 					"DS_SQL_PARQ_accountKey": {
 						"value": "[parameters('DS_SQL_PARQ_accountKey')]"
 					},
+					"LS_MANUALFILE_PARQ_accountKey": {
+						"value": "[parameters('LS_MANUALFILE_PARQ_accountKey')]"
+					},
+					"LS_MAN_PARQ_OUT_accountKey": {
+						"value": "[parameters('LS_MAN_PARQ_OUT_accountKey')]"
+					},
+					"LS_RES_PARQ_accountKey": {
+						"value": "[parameters('LS_RES_PARQ_accountKey')]"
+					},
 					"LS_SQL_PARQ_accountKey": {
 						"value": "[parameters('LS_SQL_PARQ_accountKey')]"
 					},
@@ -81,6 +122,18 @@
 					"DS_SQL_PARQ_properties_typeProperties_url": {
 						"value": "[parameters('DS_SQL_PARQ_properties_typeProperties_url')]"
 					},
+					"LS_MANUALFILE_PARQ_properties_typeProperties_url": {
+						"value": "[parameters('LS_MANUALFILE_PARQ_properties_typeProperties_url')]"
+					},
+					"LS_MAN_PARQ_OUT_properties_typeProperties_url": {
+						"value": "[parameters('LS_MAN_PARQ_OUT_properties_typeProperties_url')]"
+					},
+					"LS_REST_PARQ_properties_typeProperties_url": {
+						"value": "[parameters('LS_REST_PARQ_properties_typeProperties_url')]"
+					},
+					"LS_RES_PARQ_properties_typeProperties_url": {
+						"value": "[parameters('LS_RES_PARQ_properties_typeProperties_url')]"
+					},
 					"LS_SQL_PARQ_properties_typeProperties_url": {
 						"value": "[parameters('LS_SQL_PARQ_properties_typeProperties_url')]"
 					},
@@ -89,10 +142,33 @@
 					},
 					"integrationRuntime2_properties_typeProperties_linkedInfo_resourceId": {
 						"value": "[parameters('integrationRuntime2_properties_typeProperties_linkedInfo_resourceId')]"
+					},
+					"EVNT_MANUALFILE_properties_typeProperties_scope": {
+						"value": "[parameters('EVNT_MANUALFILE_properties_typeProperties_scope')]"
 					}
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "adfecomprj_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'adfecomprj_ArmTemplate_0')]"
+			]
 		}
 	]
 }

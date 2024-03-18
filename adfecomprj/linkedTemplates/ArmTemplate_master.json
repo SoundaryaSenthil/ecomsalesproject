@@ -35,6 +35,14 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'LS_SQL_PARQ1'"
 		},
+		"ls_blob_parqin_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_blob_parqin'"
+		},
+		"ls_blob_parqout_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ls_blob_parqout'"
+		},
 		"DS_SQL_PARQ_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://adlsecomprjrow.dfs.core.windows.net/"
@@ -70,6 +78,14 @@
 		"integrationRuntime2_properties_typeProperties_linkedInfo_resourceId": {
 			"type": "string",
 			"defaultValue": "/subscriptions/f3b639bf-7b9d-4aa6-aad9-8a3abc2a5e77/resourcegroups/azurevisionboard-rg/providers/Microsoft.DataFactory/factories/adfvisiontrainig/integrationruntimes/integrationRuntimenew"
+		},
+		"ls_blob_parqout_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adlsecomprjsi.dfs.core.windows.net/"
+		},
+		"evnt_blob_trigger_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/f3b639bf-7b9d-4aa6-aad9-8a3abc2a5e77/resourceGroups/rg-ecomproject/providers/Microsoft.Storage/storageAccounts/blobecomprjrow"
 		},
 		"containerUri": {
 			"type": "string",
@@ -116,6 +132,12 @@
 					"LS_SQL_PARQ1_accountKey": {
 						"value": "[parameters('LS_SQL_PARQ1_accountKey')]"
 					},
+					"ls_blob_parqin_connectionString": {
+						"value": "[parameters('ls_blob_parqin_connectionString')]"
+					},
+					"ls_blob_parqout_accountKey": {
+						"value": "[parameters('ls_blob_parqout_accountKey')]"
+					},
 					"LS_SQLTABLE_connectionString": {
 						"value": "[parameters('LS_SQLTABLE_connectionString')]"
 					},
@@ -143,8 +165,8 @@
 					"integrationRuntime2_properties_typeProperties_linkedInfo_resourceId": {
 						"value": "[parameters('integrationRuntime2_properties_typeProperties_linkedInfo_resourceId')]"
 					},
-					"EVNT_MANUALFILE_properties_typeProperties_scope": {
-						"value": "[parameters('EVNT_MANUALFILE_properties_typeProperties_scope')]"
+					"ls_blob_parqout_properties_typeProperties_url": {
+						"value": "[parameters('ls_blob_parqout_properties_typeProperties_url')]"
 					}
 				}
 			},
@@ -163,6 +185,12 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"EVNT_MANUALFILE_properties_typeProperties_scope": {
+						"value": "[parameters('EVNT_MANUALFILE_properties_typeProperties_scope')]"
+					},
+					"evnt_blob_trigger_properties_typeProperties_scope": {
+						"value": "[parameters('evnt_blob_trigger_properties_typeProperties_scope')]"
 					}
 				}
 			},

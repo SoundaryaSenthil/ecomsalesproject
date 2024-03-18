@@ -2,7 +2,7 @@
 	"name": "DS_SQL_PARQ",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "LS_SQL_PARQ",
+			"referenceName": "LS_SQL_PARQ1",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],

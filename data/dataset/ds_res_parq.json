@@ -1,0 +1,19 @@
+{
+	"name": "ds_res_parq",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_RES_PARQ",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "customer"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}

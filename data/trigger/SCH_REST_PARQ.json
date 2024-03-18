@@ -1,0 +1,24 @@
+{
+	"name": "SCH_REST_PARQ",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "PL_REST_PARQ",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2024-03-18T03:40:00",
+				"timeZone": "India Standard Time"
+			}
+		}
+	}
+}

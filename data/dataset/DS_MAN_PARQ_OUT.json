@@ -1,0 +1,19 @@
+{
+	"name": "DS_MAN_PARQ_OUT",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_MAN_PARQ_OUT",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "payment"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}

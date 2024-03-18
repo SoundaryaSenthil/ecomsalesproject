@@ -1,0 +1,24 @@
+{
+	"name": "EVNT_MANUALFILE",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "PL_ADLS_PARQ",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/manualfilepayment/blobs/",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/f3b639bf-7b9d-4aa6-aad9-8a3abc2a5e77/resourceGroups/rg-ecomproject/providers/Microsoft.Storage/storageAccounts/adlsecomprjrow",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}

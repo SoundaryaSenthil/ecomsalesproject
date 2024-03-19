@@ -71,21 +71,21 @@
 			"type": "string",
 			"defaultValue": "https://adlsecomprjsi.dfs.core.windows.net/"
 		},
-		"EVNT_MANUALFILE_properties_typeProperties_scope": {
-			"type": "string",
-			"defaultValue": "/subscriptions/f3b639bf-7b9d-4aa6-aad9-8a3abc2a5e77/resourceGroups/rg-ecomproject/providers/Microsoft.Storage/storageAccounts/adlsecomprjrow"
-		},
-		"integrationRuntime2_properties_typeProperties_linkedInfo_resourceId": {
-			"type": "string",
-			"defaultValue": "/subscriptions/f3b639bf-7b9d-4aa6-aad9-8a3abc2a5e77/resourcegroups/azurevisionboard-rg/providers/Microsoft.DataFactory/factories/adfvisiontrainig/integrationruntimes/integrationRuntimenew"
-		},
 		"ls_blob_parqout_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://adlsecomprjsi.dfs.core.windows.net/"
 		},
+		"EVNT_MANUALFILE_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/f3b639bf-7b9d-4aa6-aad9-8a3abc2a5e77/resourceGroups/rg-ecomproject/providers/Microsoft.Storage/storageAccounts/adlsecomprjrow"
+		},
 		"evnt_blob_trigger_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/f3b639bf-7b9d-4aa6-aad9-8a3abc2a5e77/resourceGroups/rg-ecomproject/providers/Microsoft.Storage/storageAccounts/blobecomprjrow"
+		},
+		"integrationRuntime2_properties_typeProperties_linkedInfo_resourceId": {
+			"type": "string",
+			"defaultValue": "/subscriptions/f3b639bf-7b9d-4aa6-aad9-8a3abc2a5e77/resourcegroups/azurevisionboard-rg/providers/Microsoft.DataFactory/factories/adfvisiontrainig/integrationruntimes/integrationRuntimenew"
 		}
 	},
 	"variables": {
@@ -165,6 +165,81 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_MANUALFILE_PARQ')]",
 				"[concat(variables('factoryId'), '/datasets/DS_MAN_PARQ_OUT')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PL_BLOB_PARQ')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ds_blob_parqin",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ds_blob_parqout",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_blob_parqin')]",
+				"[concat(variables('factoryId'), '/datasets/ds_blob_parqout')]"
 			]
 		},
 		{
@@ -364,7 +439,8 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileSystem": "payment"
+						"folderPath": "payment",
+						"fileSystem": "output"
 					},
 					"compressionCodec": "snappy"
 				},
@@ -456,7 +532,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileSystem": "order"
+						"fileSystem": "output"
 					},
 					"compressionCodec": "snappy"
 				},
@@ -464,6 +540,84 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_SQL_PARQ1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_blob_parqin')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_blob_parqin",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "products.csv",
+						"container": "productin"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "product_id",
+						"type": "String"
+					},
+					{
+						"name": "product_category_name",
+						"type": "String"
+					},
+					{
+						"name": "product_weight_g",
+						"type": "String"
+					},
+					{
+						"name": "product_length_cm",
+						"type": "String"
+					},
+					{
+						"name": "product_height_cm",
+						"type": "String"
+					},
+					{
+						"name": "product_width_cm",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_blob_parqin')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_blob_parqout')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_blob_parqout",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "product",
+						"fileSystem": "output"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_blob_parqout')]"
 			]
 		},
 		{
@@ -480,7 +634,8 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileSystem": "customer"
+						"folderPath": "customer",
+						"fileSystem": "output"
 					},
 					"compressionCodec": "snappy"
 				},
@@ -627,6 +782,36 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/ls_blob_parqin')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('ls_blob_parqin_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_blob_parqout')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('ls_blob_parqout_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('ls_blob_parqout_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/EVNT_MANUALFILE')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
@@ -717,203 +902,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/integrationRuntime2')]",
-			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "SelfHosted",
-				"typeProperties": {
-					"linkedInfo": {
-						"resourceId": "[parameters('integrationRuntime2_properties_typeProperties_linkedInfo_resourceId')]",
-						"authorizationType": "Rbac"
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/PL_BLOB_PARQ')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Copy data1",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
-							},
-							"sink": {
-								"type": "ParquetSink",
-								"storeSettings": {
-									"type": "AzureBlobFSWriteSettings"
-								},
-								"formatSettings": {
-									"type": "ParquetWriteSettings"
-								}
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "ds_blob_parqin",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "ds_blob_parqout",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/ds_blob_parqin')]",
-				"[concat(variables('factoryId'), '/datasets/ds_blob_parqout')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ls_blob_parqin')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobStorage",
-				"typeProperties": {
-					"connectionString": "[parameters('ls_blob_parqin_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ds_blob_parqin')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ls_blob_parqin",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "products.csv",
-						"container": "productin"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "product_id",
-						"type": "String"
-					},
-					{
-						"name": "product_category_name",
-						"type": "String"
-					},
-					{
-						"name": "product_weight_g",
-						"type": "String"
-					},
-					{
-						"name": "product_length_cm",
-						"type": "String"
-					},
-					{
-						"name": "product_height_cm",
-						"type": "String"
-					},
-					{
-						"name": "product_width_cm",
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ls_blob_parqin')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ls_blob_parqout')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobFS",
-				"typeProperties": {
-					"url": "[parameters('ls_blob_parqout_properties_typeProperties_url')]",
-					"accountKey": {
-						"type": "SecureString",
-						"value": "[parameters('ls_blob_parqout_accountKey')]"
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ds_blob_parqout')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ls_blob_parqout",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileSystem": "product"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ls_blob_parqout')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/evnt_blob_trigger')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
@@ -942,6 +930,21 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/PL_BLOB_PARQ')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/integrationRuntime2')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "SelfHosted",
+				"typeProperties": {
+					"linkedInfo": {
+						"resourceId": "[parameters('integrationRuntime2_properties_typeProperties_linkedInfo_resourceId')]",
+						"authorizationType": "Rbac"
+					}
+				}
+			},
+			"dependsOn": []
 		}
 	]
 }

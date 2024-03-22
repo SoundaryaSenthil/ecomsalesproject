@@ -1,0 +1,41 @@
+{
+	"name": "SqlServerTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SQLTABLE",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "order_id",
+				"type": "varchar"
+			},
+			{
+				"name": "order_item_id",
+				"type": "varchar"
+			},
+			{
+				"name": "product_id",
+				"type": "varchar"
+			},
+			{
+				"name": "seller_id",
+				"type": "varchar"
+			},
+			{
+				"name": "price",
+				"type": "varchar"
+			},
+			{
+				"name": "shipping_charges",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "order_items"
+		}
+	}
+}

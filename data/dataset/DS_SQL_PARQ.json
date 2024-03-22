@@ -10,6 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": "orderitems.parquet",
 				"folderPath": "order",
 				"fileSystem": "output"
 			},

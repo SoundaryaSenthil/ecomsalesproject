@@ -9,12 +9,6 @@
 					"referenceName": "PL_SQL_PARQ",
 					"type": "PipelineReference"
 				}
-			},
-			{
-				"pipelineReference": {
-					"referenceName": "PL_SQLORDERITEM_PARQ",
-					"type": "PipelineReference"
-				}
 			}
 		],
 		"type": "ScheduleTrigger",

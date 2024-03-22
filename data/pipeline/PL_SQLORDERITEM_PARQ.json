@@ -47,7 +47,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DS_SQL_PARQ",
+						"referenceName": "DS_ORDERITEMS_PARQ",
 						"type": "DatasetReference"
 					}
 				]

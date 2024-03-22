@@ -1,5 +1,5 @@
 {
-	"name": "DS_SQL_PARQ",
+	"name": "DS_ORDERITEMS_PARQ",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LS_SQL_ORDERITEMS_PARQ",
@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "orders.parquet",
+				"fileName": "orderitems.parquet",
 				"folderPath": "order",
 				"fileSystem": "output"
 			},

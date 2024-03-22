@@ -596,8 +596,7 @@
 						"frequency": "Day",
 						"interval": 1,
 						"startTime": "2024-03-22T05:37:00",
-						"timeZone": "India Standard Time",
-						"schedule": {}
+						"timeZone": "India Standard Time"
 					}
 				}
 			},

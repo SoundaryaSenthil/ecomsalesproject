@@ -20,6 +20,9 @@
 		"LS_SQLTABLE_connectionString": {
 			"value": ""
 		},
+		"LS_SQL_ORDERITEMS_PARQ_accountKey": {
+			"value": ""
+		},
 		"LS_SQL_PARQ_accountKey": {
 			"value": ""
 		},
@@ -45,6 +48,9 @@
 			"value": " https://retoolapi.dev/qafgQn/data"
 		},
 		"LS_RES_PARQ_properties_typeProperties_url": {
+			"value": "https://adlsecomprjsi.dfs.core.windows.net/"
+		},
+		"LS_SQL_ORDERITEMS_PARQ_properties_typeProperties_url": {
 			"value": "https://adlsecomprjsi.dfs.core.windows.net/"
 		},
 		"LS_SQL_PARQ_properties_typeProperties_url": {

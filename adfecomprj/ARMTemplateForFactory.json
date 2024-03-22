@@ -27,6 +27,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'LS_SQLTABLE'"
 		},
+		"LS_SQL_ORDERITEMS_PARQ_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_SQL_ORDERITEMS_PARQ'"
+		},
 		"LS_SQL_PARQ_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'LS_SQL_PARQ'"
@@ -60,6 +64,10 @@
 			"defaultValue": " https://retoolapi.dev/qafgQn/data"
 		},
 		"LS_RES_PARQ_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adlsecomprjsi.dfs.core.windows.net/"
+		},
+		"LS_SQL_ORDERITEMS_PARQ_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://adlsecomprjsi.dfs.core.windows.net/"
 		},
@@ -308,6 +316,75 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/PL_SQLORDERITEM_PARQ')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SqlServerSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SqlServerTable1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_ORDERITEMS_PARQ",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SqlServerTable1')]",
+				"[concat(variables('factoryId'), '/datasets/DS_ORDERITEMS_PARQ')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/PL_SQL_PARQ')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -451,6 +528,32 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/DS_ORDERITEMS_PARQ')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_SQL_ORDERITEMS_PARQ",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "orderitems.parquet",
+						"folderPath": "order",
+						"fileSystem": "output"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_SQL_ORDERITEMS_PARQ')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/DS_REST_PARQ')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -524,7 +627,7 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "LS_SQL_PARQ1",
+					"referenceName": "LS_SQL_ORDERITEMS_PARQ",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
@@ -532,6 +635,8 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
+						"fileName": "orders.parquet",
+						"folderPath": "order",
 						"fileSystem": "output"
 					},
 					"compressionCodec": "snappy"
@@ -539,7 +644,53 @@
 				"schema": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_SQL_PARQ1')]"
+				"[concat(variables('factoryId'), '/linkedServices/LS_SQL_ORDERITEMS_PARQ')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SqlServerTable1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_SQLTABLE",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [
+					{
+						"name": "order_id",
+						"type": "varchar"
+					},
+					{
+						"name": "order_item_id",
+						"type": "varchar"
+					},
+					{
+						"name": "product_id",
+						"type": "varchar"
+					},
+					{
+						"name": "seller_id",
+						"type": "varchar"
+					},
+					{
+						"name": "price",
+						"type": "varchar"
+					},
+					{
+						"name": "shipping_charges",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "order_items"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_SQLTABLE')]"
 			]
 		},
 		{
@@ -634,6 +785,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
+						"fileName": "customers.parquet",
 						"folderPath": "customer",
 						"fileSystem": "output"
 					},
@@ -748,6 +900,23 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/LS_SQL_ORDERITEMS_PARQ')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('LS_SQL_ORDERITEMS_PARQ_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('LS_SQL_ORDERITEMS_PARQ_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/LS_SQL_PARQ')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -855,6 +1024,13 @@
 							"type": "PipelineReference"
 						},
 						"parameters": {}
+					},
+					{
+						"pipelineReference": {
+							"referenceName": "PL_SQLORDERITEM_PARQ",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
 					}
 				],
 				"type": "ScheduleTrigger",
@@ -868,7 +1044,8 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/PL_SQL_PARQ')]"
+				"[concat(variables('factoryId'), '/pipelines/PL_SQL_PARQ')]",
+				"[concat(variables('factoryId'), '/pipelines/PL_SQLORDERITEM_PARQ')]"
 			]
 		},
 		{

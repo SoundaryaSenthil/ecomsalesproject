@@ -14,4 +14,3 @@
    Delta tables are employed for validation purposes, ensuring data consistency, reliability, and integrity throughout the data engineering process. This includes features such as ACID transactions, time travel, and schema enforcement for robust data validation and quality assurance.
 11. **Data Quality Checks**: Performing duplication checks and identifying missing or duplicate rows.
 12. **Data Storage and Presentation**: Storing final data in Azure Synapse Analytics, creating tables or views based on customer requirements.
-13. **Visualization**: Integrating data into Power BI for visualization and analytics. This project demonstrates a robust end-to-end data engineering pipeline on Azure, covering ingestion, processing, transformation, quality checks, storage, and visualization.

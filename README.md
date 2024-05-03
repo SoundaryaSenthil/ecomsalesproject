@@ -1,4 +1,5 @@
 **Azure Data Engineering Project on Ecommerce Sales**
+The eCommerce sales project utilized Azure Data Factory to orchestrate data workflows, Azure Data Lake Storage for centralized data storage, and Microsoft SQL Server for transactional data management. Azure Databricks implemented SCD1 and SCD2 methodologies for dimension data management, ensuring accurate and historical analysis of sales performance in a scalable Azure environment.
 
 ![dataeng](https://github.com/SoundaryaSenthil/ecomsalesproject/assets/161588836/5cfc7602-6c58-4f06-ac82-c6f309958799)
 1. **Data Sources**: Various data sources including CSV, REST API, JSON, and on-premise SQL Server.
